@@ -54,7 +54,7 @@ a {
   padding: 0 10px;
 
   &.vue-school-active-class {
-    color: yellow;
+    color: #ab26ab;
   }
 }
 </style>
