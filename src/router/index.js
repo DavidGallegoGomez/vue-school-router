@@ -28,7 +28,8 @@ const routes = [
         component: () =>
           import(
             /* webpackChunkName: "ExperienceDetails" */ "@/views/ExperienceDetails"
-          )
+          ),
+        meta: { requiresAuth: true } // DGG: Prueba (Hay que logarse para ver los detalles de las experiencias)
       }
     ],
     beforeEnter: (to, from, next) => {
@@ -42,6 +43,32 @@ const routes = [
         next({ name: "notFound" });
       }
     }
+  },
+  {
+    path: "/user",
+    name: "user",
+    component: () =>
+      import(
+        /* webpackChunkName: "User" */ "@/views/User"
+      ),
+    meta: { requiresAuth: true }
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: () =>
+      import(
+        /* webpackChunkName: "Login" */ "@/views/Login"
+      )
+  },
+  {
+    path: "/invoices",
+    name: "invoices",
+    component: () =>
+      import(
+        /* webpackChunkName: "Invoices" */ "@/views/Invoices"
+      ),
+    meta: { requiresAuth: true }
   },
   {
     path: "/404",
@@ -58,7 +85,41 @@ const router = new VueRouter({
   mode: "history", // DGG: Para evitar los '#' en las URLs de las rutas
   base: process.env.BASE_URL,
   routes,
-  linkExactActiveClass: "vue-school-active-class"
+  linkExactActiveClass: "vue-school-active-class",
+  scrollBehavior (to, from, savedPosition) {
+    if (savedPosition) { return savedPosition; }
+    else {
+      const position = {}
+      if (to.hash) {
+        position.selector = to.hash;
+        if (to.hash === "#experience") {
+          position.offset = { y: 150 }
+        }
+        if (document.querySelector(to.hash)) {
+          return position;
+        }
+        return false;
+      }
+    }
+  }
 });
+
+// DGG: Para las 'guardas' de navegación
+router.beforeEach( (to, from, next) => {
+  // if (to.meta.requiresAuth) { // DGG: Es una forma menos óptima
+  if (to.matched.some( record => record.meta.requiresAuth )) {
+    // need to login
+    if (!store.user) {
+      next({
+        name: "login",
+        query: { redirect: to.fullPath }
+      });
+    } else { 
+      next();
+    }
+  } else {
+    next();
+  }
+} );
 
 export default router;

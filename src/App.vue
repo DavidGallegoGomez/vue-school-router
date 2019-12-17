@@ -3,7 +3,7 @@
     <the-navigation />
     <!-- <transition name="slide" mode="out-in"> -->
     <!-- <transition name="moveUp"> -->
-    <transition name="fade">
+    <transition name="fade" mode="out-in">
       <router-view :key="$route.path" />
     </transition>
   </div>
@@ -75,5 +75,16 @@ export default {
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
+}
+
+.input {
+  border: 1px solid green;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+.btn {
+  background-color: green;
+  color: white;
+  padding: 10px;
 }
 </style>

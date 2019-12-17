@@ -19,6 +19,9 @@
           {{ destination.name }}
         </router-link>
       </li>
+      <li class="links">
+        <router-link to="/user">Dashboard</router-link>
+      </li>
     </ul>
   </nav>
 </template>
@@ -36,7 +39,6 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 h3 {
   margin: 40px 0 0;
@@ -54,7 +56,14 @@ a {
 }
 #nav {
   display: flex;
-
+  /* DGG: Para fijar la barra de navegación */
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  border-bottom: 1px solid grey;
+  z-index: 1;
+  /* ************************************** */
   a {
     color: #2c3e50;
     text-decoration: none;
