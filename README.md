@@ -1,4 +1,7 @@
 # vue-school-router
+```
+It contains with an example of nested routes (common pattern)
+```
 
 ## Project setup
 ```
