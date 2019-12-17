@@ -49,12 +49,11 @@ img {
   justify-content: space-between;
 }
 a {
-  font-weight: bold;
-  color: #2c3e50;
-  padding: 0 10px;
-
-  &.vue-school-active-class {
-    color: #ab26ab;
+  color: lightseagreen;
+  text-decoration: none;
+  &:hover,
+  &:visited {
+    text-decoration: underline;
   }
 }
 </style>
